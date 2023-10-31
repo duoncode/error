@@ -6,7 +6,7 @@ theme:
     name: conia
 repo_url: https://github.com/coniadev/error
 extra:
-    project: Http
+    project: Error
 plugins:
     - search
     - macros:

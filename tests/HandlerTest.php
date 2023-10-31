@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Conia\Error\Tests;
 
 use Conia\Error\Handler;
-use Conia\Error\Logger;
 use Conia\Error\Tests\Fixtures\TestRenderer;
+use Conia\Log\Logger;
 use DivisionByZeroError;
 use ErrorException;
 use Exception;

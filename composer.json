@@ -3,6 +3,8 @@
     "description": "Error handling PSR-15 middleware",
     "type": "library",
     "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "Conia\\Error\\": "src/"
@@ -27,6 +29,7 @@
     },
     "require-dev": {
         "conia/development": "^1.0",
+        "conia/log": "dev-main",
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
         "nyholm/psr7": "^1.8",
         "nyholm/psr7-server": "^1.0",
