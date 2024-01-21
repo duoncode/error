@@ -16,12 +16,14 @@ use Throwable;
 /** @psalm-api */
 class Handler implements Middleware
 {
+    protected ?Logger $logger = null;
+
     /** @var RendererEntry[] */
     protected array $renderers = [];
 
     public function __construct(
         protected readonly ResponseFactory $responseFactory,
-        protected readonly ?Logger $logger = null
+        protected readonly bool $debug = false,
     ) {
         set_error_handler([$this, 'handleError'], E_ALL);
         set_exception_handler([$this, 'emitException']);
@@ -31,6 +33,11 @@ class Handler implements Middleware
     {
         restore_error_handler();
         restore_exception_handler();
+    }
+
+    public function logger(?Logger $logger = null): void
+    {
+        $this->logger = $logger;
     }
 
     public function process(Request $request, RequestHandler $handler): Response
@@ -96,6 +103,10 @@ class Handler implements Middleware
                 $this->responseFactory->createResponse(),
                 $request
             );
+        }
+
+        if ($this->debug) {
+            throw $exception;
         }
 
         $this->logUnmatched($exception);
