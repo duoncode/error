@@ -10,7 +10,7 @@ use Conia\Log\Logger;
 use ErrorException;
 use PHPUnit\Framework\Attributes\TestDox;
 
-class HandlerLoggerTest extends TestCase
+class LoggerTest extends TestCase
 {
     #[TestDox("Render matched error while using a logger")]
     public function testRenderMatchedErrorWithLogger(): void
