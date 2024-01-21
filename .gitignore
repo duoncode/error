@@ -8,4 +8,5 @@
 /tmp
 /vendor
 __pycache__
+clover.xml
 composer.lock
