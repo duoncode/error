@@ -22,6 +22,8 @@ class Handler implements Middleware
     /** @var RendererEntry[] */
     protected array $renderers = [];
 
+    protected ?RendererEntry $defaultRenderer = null;
+
     public function __construct(
         protected readonly ResponseFactory $responseFactory,
         protected readonly bool $debug = false,
@@ -58,9 +60,16 @@ class Handler implements Middleware
     /**
      * @param class-string<Throwable>|class-string<Throwable>[] $exceptions
      */
-    public function render(string|array $exceptions, Renderer $renderer): RendererEntry
+    public function renderer(Renderer $renderer, string|array|null $exceptions = null): RendererEntry
     {
-        $renderEntry = new RendererEntry(is_string($exceptions) ? [$exceptions] : $exceptions, $renderer);
+        if ($exceptions === null) {
+            $rendererEntry =  new RendererEntry([], $renderer);
+            $this->defaultRenderer = $rendererEntry;
+
+            return $rendererEntry;
+        }
+
+        $renderEntry = new RendererEntry((array)$exceptions, $renderer);
         $this->renderers[] = $renderEntry;
 
         return $renderEntry;
@@ -121,6 +130,15 @@ class Handler implements Middleware
         }
 
         $this->logUnmatched($exception);
+
+        if ($this->defaultRenderer) {
+            return $this->defaultRenderer->renderer->render(
+                $exception,
+                $this->responseFactory,
+                $request,
+                $this->debug,
+            );
+        }
 
         $response = $this->responseFactory->createResponse(500)->withHeader('Content-Type', 'text/html') ;
         $response->getBody()->write('<h1>500 Internal Server Error</h1>');

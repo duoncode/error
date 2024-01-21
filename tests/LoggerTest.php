@@ -17,11 +17,11 @@ class LoggerTest extends TestCase
     {
         $handler = new Handler($this->factory);
         $handler->logger(new Logger(logfile: $this->logFile));
-        $handler->render(ErrorException::class, new TestRenderer())->log(Logger::CRITICAL);
+        $handler->renderer(new TestRenderer(), ErrorException::class)->log(Logger::CRITICAL);
         $response = $handler->getResponse(new ErrorException('test message'), $this->request());
         $output = file_get_contents($this->logFile);
 
-        $this->assertEquals('rendered GET test message', (string)$response->getBody());
+        $this->assertEquals('ErrorException rendered GET test message', (string)$response->getBody());
         $this->assertStringContainsString('CRITICAL: Matched Exception', $output);
     }
 
@@ -30,11 +30,11 @@ class LoggerTest extends TestCase
     {
         $handler = new Handler($this->factory);
         $handler->logger(new Logger(logfile: $this->logFile));
-        $handler->render(ErrorException::class, new TestRenderer());
+        $handler->renderer(new TestRenderer(), ErrorException::class);
         $response = $handler->getResponse(new ErrorException('test message'), $this->request());
         $output = file_get_contents($this->logFile);
 
-        $this->assertEquals('rendered GET test message', (string)$response->getBody());
+        $this->assertEquals('ErrorException rendered GET test message', (string)$response->getBody());
         $this->assertEquals('', $output);
     }
 
