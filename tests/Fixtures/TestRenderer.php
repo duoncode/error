@@ -11,7 +11,7 @@ use Throwable;
 
 class TestRenderer implements Renderer
 {
-    public function render(Throwable $exception, Response $response, ?Request $request): Response
+    public function render(Throwable $exception, Response $response, ?Request $request, bool $debug): Response
     {
         $response->getBody()->write('rendered ' .
             ($request ? $request->getMethod() : 'without request') .

@@ -10,5 +10,5 @@ use Throwable;
 
 interface Renderer
 {
-    public function render(Throwable $exception, Response $response, ?Request $request): Response;
+    public function render(Throwable $exception, Response $response, ?Request $request, bool $debug): Response;
 }
