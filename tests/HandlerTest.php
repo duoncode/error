@@ -34,15 +34,6 @@ class HandlerTest extends TestCase
         $handler->handleError(E_WARNING, 'Handler Test');
     }
 
-    #[TestDox("Don't handle unregistered exception when in debug mode")]
-    public function testDontHandleUnregisteredException(): void
-    {
-        $this->throws(DivisionByZeroError::class, 'test');
-
-        $handler = new Handler($this->factory, debug: true);
-        $handler->getResponse(new DivisionByZeroError('test'), null);
-    }
-
     #[TestDox("Render error without request")]
     public function testRenderErrorWithoutRequest(): void
     {

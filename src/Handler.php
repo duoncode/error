@@ -17,6 +17,7 @@ use Throwable;
 class Handler implements Middleware
 {
     protected ?Logger $logger = null;
+    protected ?DebugHandler $debugHandler = null;
 
     /** @var RendererEntry[] */
     protected array $renderers = [];
@@ -27,6 +28,11 @@ class Handler implements Middleware
     ) {
         set_error_handler([$this, 'handleError'], E_ALL);
         set_exception_handler([$this, 'emitException']);
+    }
+
+    public function debugHandler(DebugHandler $debugHandler): void
+    {
+        $this->debugHandler = $debugHandler;
     }
 
     public function __destruct()
@@ -107,6 +113,10 @@ class Handler implements Middleware
         }
 
         if ($this->debug) {
+            if ($this->debugHandler) {
+                return $this->debugHandler->handle($exception, $this->responseFactory);
+            }
+
             throw $exception;
         }
 
