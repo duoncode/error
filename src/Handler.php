@@ -106,7 +106,7 @@ class Handler implements Middleware
         if ($renderer) {
             return $renderer->render(
                 $exception,
-                $this->responseFactory->createResponse(),
+                $this->responseFactory,
                 $request,
                 $this->debug,
             );
