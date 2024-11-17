@@ -1,13 +1,13 @@
-site_name: Conia Error
+site_name: FiveOrbs Error
 copyright: © 2023 ebene fünf GmbH
 nav:
   - index.md
 theme:
-    name: conia
-repo_url: https://github.com/coniadev/error
+  name: fiveorbs
+repo_url: https://github.com/fiveorbs/error
 extra:
-    project: Error
+  project: Error
 plugins:
-    - search
-    - macros:
-        module_name: docs/main
+  - search
+  - macros:
+      module_name: docs/main
