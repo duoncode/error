@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Conia\Error;
+namespace FiveOrbs\Error;
 
 use ErrorException;
 use Psr\Http\Message\ResponseFactoryInterface as ResponseFactory;
@@ -16,147 +16,147 @@ use Throwable;
 /** @psalm-api */
 class Handler implements Middleware
 {
-    protected ?Logger $logger = null;
-    protected ?DebugHandler $debugHandler = null;
+	protected ?Logger $logger = null;
+	protected ?DebugHandler $debugHandler = null;
 
-    /** @var RendererEntry[] */
-    protected array $renderers = [];
+	/** @var RendererEntry[] */
+	protected array $renderers = [];
 
-    protected ?RendererEntry $defaultRenderer = null;
+	protected ?RendererEntry $defaultRenderer = null;
 
-    public function __construct(
-        protected readonly ResponseFactory $responseFactory,
-        protected readonly bool $debug = false,
-    ) {
-        set_error_handler([$this, 'handleError'], E_ALL);
-        set_exception_handler([$this, 'emitException']);
-    }
+	public function __construct(
+		protected readonly ResponseFactory $responseFactory,
+		protected readonly bool $debug = false,
+	) {
+		set_error_handler([$this, 'handleError'], E_ALL);
+		set_exception_handler([$this, 'emitException']);
+	}
 
-    public function debugHandler(DebugHandler $debugHandler): void
-    {
-        $this->debugHandler = $debugHandler;
-    }
+	public function debugHandler(DebugHandler $debugHandler): void
+	{
+		$this->debugHandler = $debugHandler;
+	}
 
-    public function __destruct()
-    {
-        restore_error_handler();
-        restore_exception_handler();
-    }
+	public function __destruct()
+	{
+		restore_error_handler();
+		restore_exception_handler();
+	}
 
-    public function logger(?Logger $logger = null): void
-    {
-        $this->logger = $logger;
-    }
+	public function logger(?Logger $logger = null): void
+	{
+		$this->logger = $logger;
+	}
 
-    public function process(Request $request, RequestHandler $handler): Response
-    {
-        try {
-            return $handler->handle($request);
-        } catch (Throwable $e) {
-            return $this->getResponse($e, $request);
-        }
-    }
+	public function process(Request $request, RequestHandler $handler): Response
+	{
+		try {
+			return $handler->handle($request);
+		} catch (Throwable $e) {
+			return $this->getResponse($e, $request);
+		}
+	}
 
-    /**
-     * @param class-string<Throwable>|class-string<Throwable>[] $exceptions
-     */
-    public function renderer(Renderer $renderer, string|array|null $exceptions = null): RendererEntry
-    {
-        if ($exceptions === null) {
-            $rendererEntry =  new RendererEntry([], $renderer);
-            $this->defaultRenderer = $rendererEntry;
+	/**
+	 * @param class-string<Throwable>|class-string<Throwable>[] $exceptions
+	 */
+	public function renderer(Renderer $renderer, string|array|null $exceptions = null): RendererEntry
+	{
+		if ($exceptions === null) {
+			$rendererEntry =  new RendererEntry([], $renderer);
+			$this->defaultRenderer = $rendererEntry;
 
-            return $rendererEntry;
-        }
+			return $rendererEntry;
+		}
 
-        $renderEntry = new RendererEntry((array)$exceptions, $renderer);
-        $this->renderers[] = $renderEntry;
+		$renderEntry = new RendererEntry((array) $exceptions, $renderer);
+		$this->renderers[] = $renderEntry;
 
-        return $renderEntry;
-    }
+		return $renderEntry;
+	}
 
-    public function handleError(
-        int $level,
-        string $message,
-        string $file = '',
-        int $line = 0,
-    ): bool {
-        if ($level & error_reporting()) {
-            throw new ErrorException($message, $level, $level, $file, $line);
-        }
+	public function handleError(
+		int $level,
+		string $message,
+		string $file = '',
+		int $line = 0,
+	): bool {
+		if ($level & error_reporting()) {
+			throw new ErrorException($message, $level, $level, $file, $line);
+		}
 
-        return false;
-    }
+		return false;
+	}
 
-    public function emitException(Throwable $exception): void
-    {
-        $response = $this->getResponse($exception, null);
+	public function emitException(Throwable $exception): void
+	{
+		$response = $this->getResponse($exception, null);
 
-        echo (string)$response->getBody();
-    }
+		echo (string) $response->getBody();
+	}
 
-    public function getResponse(Throwable $exception, ?Request $request): Response
-    {
-        $renderer = null;
-        $logLevel = null;
+	public function getResponse(Throwable $exception, ?Request $request): Response
+	{
+		$renderer = null;
+		$logLevel = null;
 
-        foreach ($this->renderers as $rendererEntry) {
-            if ($rendererEntry->matches($exception)) {
-                $renderer = $rendererEntry->renderer;
-                $logLevel = $rendererEntry->getLogLevel();
-                break;
-            }
-        }
+		foreach ($this->renderers as $rendererEntry) {
+			if ($rendererEntry->matches($exception)) {
+				$renderer = $rendererEntry->renderer;
+				$logLevel = $rendererEntry->getLogLevel();
+				break;
+			}
+		}
 
-        if (!is_null($logLevel)) {
-            $this->log($logLevel, $exception);
-        }
+		if (!is_null($logLevel)) {
+			$this->log($logLevel, $exception);
+		}
 
-        if ($renderer) {
-            return $renderer->render(
-                $exception,
-                $this->responseFactory,
-                $request,
-                $this->debug,
-            );
-        }
+		if ($renderer) {
+			return $renderer->render(
+				$exception,
+				$this->responseFactory,
+				$request,
+				$this->debug,
+			);
+		}
 
-        if ($this->debug) {
-            if ($this->debugHandler) {
-                return $this->debugHandler->handle($exception, $this->responseFactory);
-            }
+		if ($this->debug) {
+			if ($this->debugHandler) {
+				return $this->debugHandler->handle($exception, $this->responseFactory);
+			}
 
-            throw $exception;
-        }
+			throw $exception;
+		}
 
-        $this->logUnmatched($exception);
+		$this->logUnmatched($exception);
 
-        if ($this->defaultRenderer) {
-            return $this->defaultRenderer->renderer->render(
-                $exception,
-                $this->responseFactory,
-                $request,
-                $this->debug,
-            );
-        }
+		if ($this->defaultRenderer) {
+			return $this->defaultRenderer->renderer->render(
+				$exception,
+				$this->responseFactory,
+				$request,
+				$this->debug,
+			);
+		}
 
-        $response = $this->responseFactory->createResponse(500)->withHeader('Content-Type', 'text/html') ;
-        $response->getBody()->write('<h1>500 Internal Server Error</h1>');
+		$response = $this->responseFactory->createResponse(500)->withHeader('Content-Type', 'text/html') ;
+		$response->getBody()->write('<h1>500 Internal Server Error</h1>');
 
-        return $response;
-    }
+		return $response;
+	}
 
-    protected function log(string|int $logLevel, Throwable $exception): void
-    {
-        if ($this->logger) {
-            $this->logger->log($logLevel, 'Matched Exception:', ['exception' => $exception]);
-        }
-    }
+	protected function log(string|int $logLevel, Throwable $exception): void
+	{
+		if ($this->logger) {
+			$this->logger->log($logLevel, 'Matched Exception:', ['exception' => $exception]);
+		}
+	}
 
-    protected function logUnmatched(Throwable $exception): void
-    {
-        if ($this->logger) {
-            $this->logger->alert('Unmatched Exception:', ['exception' => $exception]);
-        }
-    }
+	protected function logUnmatched(Throwable $exception): void
+	{
+		if ($this->logger) {
+			$this->logger->alert('Unmatched Exception:', ['exception' => $exception]);
+		}
+	}
 }
