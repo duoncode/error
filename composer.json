@@ -1,76 +1,76 @@
 {
-    "name": "conia/error",
-    "description": "Error handling PSR-15 middleware",
-    "type": "library",
-    "license": "MIT",
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "autoload": {
-        "psr-4": {
-            "Conia\\Error\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Conia\\Error\\Tests\\": "tests/"
-        }
-    },
-    "authors": [
-        {
-            "name": "ebene fünf GmbH",
-            "email": "info@ebenefuenf.de"
-        }
-    ],
-    "require": {
-        "psr/http-message": "^1.1 || ^2.0",
-        "psr/http-server-handler": "^1.0",
-        "psr/http-server-middleware": "^1.0",
-        "psr/http-factory": "^1.0"
-    },
-    "require-dev": {
-        "conia/development": "^1.0",
-        "conia/log": "dev-main",
-        "ernst/coverlyzer": "^0.1.1",
-        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
-        "nyholm/psr7": "^1.8",
-        "nyholm/psr7-server": "^1.0",
-        "phpunit/phpunit": "^10.4",
-        "vimeo/psalm": "^5.15"
-    },
-    "scripts": {
-        "test": [
-            "composer docstest",
-            "./vendor/bin/phpunit --testdox --no-coverage --colors=always"
-        ],
-        "check": "./vendor/bin/psalm --no-cache",
-        "check-github": "./vendor/bin/psalm --output-format=github --shepherd",
-        "lint": "./vendor/bin/phpcs -s -p src tests docs/code",
-        "coverage": [
-            "./vendor/bin/phpunit --testdox --coverage-clover=clover.xml --coverage-text --coverage-php=coverage/cover.php  --colors=always",
-            "./vendor/bin/coverlyzer coverage/cover.php"
-        ],
-        "ci": [
-            "composer docstest",
-            "composer coverage",
-            "composer check",
-            "composer lint"
-        ],
-        "github": [
-            "composer docstest",
-            "composer coverage",
-            "composer check-github",
-            "composer lint"
-        ],
-        "docs": [
-            "composer docstest",
-            "./venv/bin/python ./venv/bin/mkdocs build"
-        ],
-        "docserve": "./venv/bin/python ./venv/bin/mkdocs serve",
-        "docstest": "./vendor/bin/docs-test-runner ./docs/code"
-    },
-    "config": {
-        "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
-        }
-    }
+	"name": "fiveorbs/error",
+	"description": "Error handling PSR-15 middleware",
+	"type": "library",
+	"license": "MIT",
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"autoload": {
+		"psr-4": {
+			"FiveOrbs\\Error\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"FiveOrbs\\Error\\Tests\\": "tests/"
+		}
+	},
+	"authors": [
+		{
+			"name": "ebene fünf GmbH",
+			"email": "info@ebenefuenf.de"
+		}
+	],
+	"require": {
+		"psr/http-message": "^1.1 || ^2.0",
+		"psr/http-server-handler": "^1.0",
+		"psr/http-server-middleware": "^1.0",
+		"psr/http-factory": "^1.0"
+	},
+	"require-dev": {
+		"fiveorbs/dev": "^1.1",
+		"fiveorbs/log": "dev-main",
+		"ernst/coverlyzer": "^0.1.1",
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+		"nyholm/psr7": "^1.8",
+		"nyholm/psr7-server": "^1.0",
+		"phpunit/phpunit": "^10.4",
+		"vimeo/psalm": "^5.15"
+	},
+	"scripts": {
+		"test": [
+			"composer docstest",
+			"./vendor/bin/phpunit --testdox --no-coverage --colors=always"
+		],
+		"check": "./vendor/bin/psalm --no-cache",
+		"check-github": "./vendor/bin/psalm --output-format=github --shepherd",
+		"lint": "./vendor/bin/phpcs -s -p src tests docs/code",
+		"coverage": [
+			"./vendor/bin/phpunit --testdox --coverage-clover=clover.xml --coverage-text --coverage-php=coverage/cover.php  --colors=always",
+			"./vendor/bin/coverlyzer coverage/cover.php"
+		],
+		"ci": [
+			"composer docstest",
+			"composer coverage",
+			"composer check",
+			"composer lint"
+		],
+		"github": [
+			"composer docstest",
+			"composer coverage",
+			"composer check-github",
+			"composer lint"
+		],
+		"docs": [
+			"composer docstest",
+			"./venv/bin/python ./venv/bin/mkdocs build"
+		],
+		"docserve": "./venv/bin/python ./venv/bin/mkdocs serve",
+		"docstest": "./vendor/bin/docs-test-runner ./docs/code"
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	}
 }
