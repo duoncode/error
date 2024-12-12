@@ -29,4 +29,20 @@ class DebugTest extends TestCase
 
 		$this->assertEquals('DivisionByZeroError test', (string) $response->getBody());
 	}
+
+	#[TestDox("Print error_log in debug mode")]
+	public function testErrorlog(): void
+	{
+		$handler = new Handler($this->factory, debug: true);
+		$handler->debugHandler(new TestDebugHandler());
+
+		// TODO: Should also test the output of error_log.
+		//       The code runs but is not tested for correctness.
+		ob_start();
+		$handler->emitException(new DivisionByZeroError('test'), null);
+		$output = ob_get_contents();
+		ob_end_clean();
+
+		$this->assertEquals('DivisionByZeroError test', $output);
+	}
 }

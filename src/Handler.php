@@ -92,6 +92,13 @@ class Handler implements Middleware
 	{
 		$response = $this->getResponse($exception, null);
 
+		if ($this->debug) {
+			$thisClass = $this::class;
+			$exceptionClass = $exception::class;
+			error_log("Exception handled by {$thisClass}: {$exceptionClass}\n");
+			error_log($exception->getMessage());
+		}
+
 		echo (string) $response->getBody();
 	}
 
