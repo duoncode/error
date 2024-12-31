@@ -93,10 +93,7 @@ class Handler implements Middleware
 		$response = $this->getResponse($exception, null);
 
 		if ($this->debug) {
-			$thisClass = $this::class;
-			$exceptionClass = $exception::class;
-			error_log("Exception handled by {$thisClass}: {$exceptionClass}\n");
-			error_log($exception->getMessage());
+			$this->errorLog($exception);
 		}
 
 		echo (string) $response->getBody();
@@ -130,6 +127,8 @@ class Handler implements Middleware
 
 		if ($this->debug) {
 			if ($this->debugHandler) {
+				$this->errorLog($exception);
+
 				return $this->debugHandler->handle($exception, $this->responseFactory);
 			}
 
@@ -158,6 +157,14 @@ class Handler implements Middleware
 		if ($this->logger) {
 			$this->logger->log($logLevel, 'Matched Exception:', ['exception' => $exception]);
 		}
+	}
+
+	protected function errorLog(Throwable $exception): void
+	{
+		$thisClass = $this::class;
+		$exceptionClass = $exception::class;
+		error_log("Exception handled by {$thisClass}: {$exceptionClass}\n");
+		error_log($exception->getMessage());
 	}
 
 	protected function logUnmatched(Throwable $exception): void
