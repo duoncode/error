@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace FiveOrbs\Error\Tests;
+namespace Duon\Error\Tests;
 
 use DivisionByZeroError;
 use Exception;
-use FiveOrbs\Error\Handler;
-use FiveOrbs\Error\Tests\Fixtures\TestRenderer;
+use Duon\Error\Handler;
+use Duon\Error\Tests\Fixtures\TestRenderer;
 use PHPUnit\Framework\Attributes\TestDox;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace FiveOrbs\Error\Tests;
+namespace Duon\Error\Tests;
 
 use DivisionByZeroError;
-use FiveOrbs\Error\Handler;
-use FiveOrbs\Error\Tests\Fixtures\TestDebugHandler;
+use Duon\Error\Handler;
+use Duon\Error\Tests\Fixtures\TestDebugHandler;
 use PHPUnit\Framework\Attributes\TestDox;
 
 class DebugTest extends TestCase

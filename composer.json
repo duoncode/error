@@ -1,5 +1,5 @@
 {
-	"name": "fiveorbs/error",
+	"name": "duon/error",
 	"description": "Error handling PSR-15 middleware",
 	"type": "library",
 	"license": "MIT",
@@ -7,12 +7,12 @@
 	"prefer-stable": true,
 	"autoload": {
 		"psr-4": {
-			"FiveOrbs\\Error\\": "src/"
+			"Duon\\Error\\": "src/"
 		}
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"FiveOrbs\\Error\\Tests\\": "tests/"
+			"Duon\\Error\\Tests\\": "tests/"
 		}
 	},
 	"authors": [
@@ -28,14 +28,14 @@
 		"psr/http-factory": "^1.0"
 	},
 	"require-dev": {
-		"fiveorbs/dev": "^1.1",
-		"fiveorbs/log": "dev-main",
-		"ernst/coverlyzer": "^0.1.1",
+		"duon/dev": "^1.1",
+		"duon/log": "dev-main",
+		"ernst/coverlyzer": "^0.2",
 		"dealerdirect/phpcodesniffer-composer-installer": "^1.0",
 		"nyholm/psr7": "^1.8",
 		"nyholm/psr7-server": "^1.0",
-		"phpunit/phpunit": "^10.4",
-		"vimeo/psalm": "^5.15"
+		"phpunit/phpunit": "^12",
+		"vimeo/psalm": "^6.10"
 	},
 	"scripts": {
 		"test": [

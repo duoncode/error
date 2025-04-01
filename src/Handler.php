@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace FiveOrbs\Error;
+namespace Duon\Error;
 
 use ErrorException;
 use Psr\Http\Message\ResponseFactoryInterface as ResponseFactory;

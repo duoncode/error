@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace FiveOrbs\Error\Tests;
+namespace Duon\Error\Tests;
 
 use ErrorException;
-use FiveOrbs\Error\Handler;
-use FiveOrbs\Error\Tests\Fixtures\TestRenderer;
-use FiveOrbs\Log\Logger;
+use Duon\Error\Handler;
+use Duon\Error\Tests\Fixtures\TestRenderer;
+use Duon\Log\Logger;
 use PHPUnit\Framework\Attributes\TestDox;
 
 class LoggerTest extends TestCase

@@ -1,10 +1,10 @@
-site_name: FiveOrbs Error
+site_name: Duon Error
 copyright: © 2023 ebene fünf GmbH
 nav:
   - index.md
 theme:
-  name: fiveorbs
-repo_url: https://github.com/fiveorbs/error
+  name: duon
+repo_url: https://github.com/duon/error
 extra:
   project: Error
 plugins:
