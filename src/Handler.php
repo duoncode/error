@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Duon\Error;
 
 use ErrorException;
+use Override;
 use Psr\Http\Message\ResponseFactoryInterface as ResponseFactory;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -57,6 +58,7 @@ class Handler implements Middleware
 		$this->logger = $logger;
 	}
 
+	#[Override]
 	public function process(Request $request, RequestHandler $handler): Response
 	{
 		try {
