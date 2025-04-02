@@ -55,15 +55,6 @@ class TestCase extends BaseTestCase
 		}
 	}
 
-	public function throws(string $exception, string $message = null): void
-	{
-		$this->expectException($exception);
-
-		if ($message) {
-			$this->expectExceptionMessage($message);
-		}
-	}
-
 	public function request(): ServerRequestInterface
 	{
 		$creator = new ServerRequestCreator(
