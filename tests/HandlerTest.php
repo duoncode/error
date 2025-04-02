@@ -27,10 +27,18 @@ class HandlerTest extends TestCase
 	#[TestDox("Throw ErrorException when error_reporting level is matched"), WithoutErrorHandler]
 	public function testThrowErrorException(): void
 	{
-		$this->throws(ErrorException::class, 'Handler Test');
+		try {
+			$handler = new Handler($this->factory);
+			$handler->handleError(E_WARNING, 'Handler Test');
+		} catch (ErrorException $e) {
+			$this->assertStringContainsString('Handler Test', $e->getMessage());
 
-		$handler = new Handler($this->factory);
-		$handler->handleError(E_WARNING, 'Handler Test');
+			$handler->restoreHandlers();
+
+			return;
+		}
+
+		$this->fail('Exception not thrown');
 	}
 
 	#[TestDox("Render default renderer without request")]

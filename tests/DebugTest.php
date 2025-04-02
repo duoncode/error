@@ -15,10 +15,18 @@ class DebugTest extends TestCase
 	#[TestDox("Don't handle unregistered exception when in debug mode"), WithoutErrorHandler]
 	public function testDontHandleUnregisteredException(): void
 	{
-		$this->throws(DivisionByZeroError::class, 'test');
+		try {
+			$handler = new Handler($this->factory, debug: true);
+			$handler->getResponse(new DivisionByZeroError('test'), null);
+		} catch (DivisionByZeroError $e) {
+			$this->assertStringContainsString('test', $e->getMessage());
 
-		$handler = new Handler($this->factory, debug: true);
-		$handler->getResponse(new DivisionByZeroError('test'), null);
+			$handler->restoreHandlers();
+
+			return;
+		}
+
+		$this->fail('Exception not thrown');
 	}
 
 	#[TestDox("Handle unregistered exception with debug handler")]
