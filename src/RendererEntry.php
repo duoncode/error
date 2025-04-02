@@ -44,4 +44,3 @@ final class RendererEntry
 		return $this->logLevel;
 	}
 }
-

@@ -53,4 +53,3 @@ class LoggerTest extends TestCase
 		$handler->restoreHandlers();
 	}
 }
-

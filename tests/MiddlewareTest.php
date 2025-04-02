@@ -61,4 +61,3 @@ class MiddlewareTest extends TestCase
 		$handler->restoreHandlers();
 	}
 }
-
