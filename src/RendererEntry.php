@@ -6,7 +6,7 @@ namespace Duon\Error;
 
 use Throwable;
 
-class RendererEntry
+final class RendererEntry
 {
 	private string|int|null $logLevel = null;
 
@@ -44,3 +44,4 @@ class RendererEntry
 		return $this->logLevel;
 	}
 }
+
