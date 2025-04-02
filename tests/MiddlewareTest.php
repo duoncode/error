@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Duon\Error\Tests;
 
 use DivisionByZeroError;
-use Exception;
 use Duon\Error\Handler;
 use Duon\Error\Tests\Fixtures\TestRenderer;
+use Exception;
 use PHPUnit\Framework\Attributes\TestDox;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -29,6 +29,7 @@ class MiddlewareTest extends TestCase
 		});
 
 		$this->assertEquals('Exception rendered GET test message middleware', (string) $response->getBody());
+		$handler->restoreHandlers();
 	}
 
 	#[TestDox('Emit PHP exception unrelated to middleware')]
@@ -42,6 +43,7 @@ class MiddlewareTest extends TestCase
 		ob_end_clean();
 
 		$this->assertStringContainsString('<h1>500 Internal Server Error</h1>', $output);
+		$handler->restoreHandlers();
 	}
 
 	#[TestDox('Emit PHP exception unrelated to middleware with renderer')]
@@ -56,5 +58,7 @@ class MiddlewareTest extends TestCase
 		ob_end_clean();
 
 		$this->assertStringContainsString('rendered without request division by zero', $output);
+		$handler->restoreHandlers();
 	}
 }
+

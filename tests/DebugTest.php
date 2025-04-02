@@ -8,10 +8,11 @@ use DivisionByZeroError;
 use Duon\Error\Handler;
 use Duon\Error\Tests\Fixtures\TestDebugHandler;
 use PHPUnit\Framework\Attributes\TestDox;
+use PHPUnit\Framework\Attributes\WithoutErrorHandler;
 
 class DebugTest extends TestCase
 {
-	#[TestDox("Don't handle unregistered exception when in debug mode")]
+	#[TestDox("Don't handle unregistered exception when in debug mode"), WithoutErrorHandler]
 	public function testDontHandleUnregisteredException(): void
 	{
 		$this->throws(DivisionByZeroError::class, 'test');
@@ -28,6 +29,7 @@ class DebugTest extends TestCase
 		$response = $handler->getResponse(new DivisionByZeroError('test'), null);
 
 		$this->assertEquals('DivisionByZeroError test', (string) $response->getBody());
+		$handler->restoreHandlers();
 	}
 
 	#[TestDox("Print error_log in debug mode")]
@@ -44,5 +46,6 @@ class DebugTest extends TestCase
 		ob_end_clean();
 
 		$this->assertEquals('DivisionByZeroError test', $output);
+		$handler->restoreHandlers();
 	}
 }

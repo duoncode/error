@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Duon\Error\Tests;
 
-use ErrorException;
 use Duon\Error\Handler;
 use Duon\Error\Tests\Fixtures\TestRenderer;
 use Duon\Log\Logger;
+use ErrorException;
 use PHPUnit\Framework\Attributes\TestDox;
 
 class LoggerTest extends TestCase
@@ -23,6 +23,7 @@ class LoggerTest extends TestCase
 
 		$this->assertEquals('ErrorException rendered GET test message', (string) $response->getBody());
 		$this->assertStringContainsString('CRITICAL: Matched Exception', $output);
+		$handler->restoreHandlers();
 	}
 
 	#[TestDox("Render matched error while using a logger but no log level set")]
@@ -36,6 +37,7 @@ class LoggerTest extends TestCase
 
 		$this->assertEquals('ErrorException rendered GET test message', (string) $response->getBody());
 		$this->assertEquals('', $output);
+		$handler->restoreHandlers();
 	}
 
 	#[TestDox("Render unmatched error while using a logger")]
@@ -48,5 +50,7 @@ class LoggerTest extends TestCase
 
 		$this->assertEquals('<h1>500 Internal Server Error</h1>', (string) $response->getBody());
 		$this->assertStringContainsString('ALERT: Unmatched Exception', $output);
+		$handler->restoreHandlers();
 	}
 }
+

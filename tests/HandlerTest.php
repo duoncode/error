@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Duon\Error\Tests;
 
 use DivisionByZeroError;
-use ErrorException;
-use Exception;
 use Duon\Error\Handler;
 use Duon\Error\Tests\Fixtures\TestRenderer;
+use ErrorException;
+use Exception;
 use PHPUnit\Framework\Attributes\TestDox;
+use PHPUnit\Framework\Attributes\WithoutErrorHandler;
 use Throwable;
 
 class HandlerTest extends TestCase
@@ -20,9 +21,10 @@ class HandlerTest extends TestCase
 		$handler = new Handler($this->factory);
 
 		$this->assertEquals(false, $handler->handleError(0, 'Handler Test'));
+		$handler->restoreHandlers();
 	}
 
-	#[TestDox("Throw ErrorException when error_reporting level is matched")]
+	#[TestDox("Throw ErrorException when error_reporting level is matched"), WithoutErrorHandler]
 	public function testThrowErrorException(): void
 	{
 		$this->throws(ErrorException::class, 'Handler Test');
@@ -39,6 +41,7 @@ class HandlerTest extends TestCase
 		$response = $handler->getResponse(new DivisionByZeroError('test message'), null);
 
 		$this->assertEquals('DivisionByZeroError rendered without request test message', (string) $response->getBody());
+		$handler->restoreHandlers();
 	}
 
 	#[TestDox("Render error without request")]
@@ -49,6 +52,7 @@ class HandlerTest extends TestCase
 		$response = $handler->getResponse(new ErrorException('test message'), null);
 
 		$this->assertEquals('ErrorException rendered without request test message', (string) $response->getBody());
+		$handler->restoreHandlers();
 	}
 
 	#[TestDox("Render error when no matching exception exists")]
@@ -59,6 +63,7 @@ class HandlerTest extends TestCase
 		$response = $handler->getResponse(new Exception('test message'), null);
 
 		$this->assertEquals('<h1>500 Internal Server Error</h1>', (string) $response->getBody());
+		$handler->restoreHandlers();
 	}
 
 	#[TestDox('Add renderer exceptions as array')]
@@ -69,6 +74,7 @@ class HandlerTest extends TestCase
 		$response = $handler->getResponse(new ErrorException('test message'), null);
 
 		$this->assertEquals('ErrorException rendered without request test message', (string) $response->getBody());
+		$handler->restoreHandlers();
 	}
 
 	#[TestDox("Render error with request")]
@@ -79,6 +85,7 @@ class HandlerTest extends TestCase
 		$response = $handler->getResponse(new ErrorException('test message'), $this->request());
 
 		$this->assertEquals('ErrorException rendered GET test message', (string) $response->getBody());
+		$handler->restoreHandlers();
 	}
 
 	#[TestDox("Render error fallback")]
@@ -90,6 +97,7 @@ class HandlerTest extends TestCase
 		$this->assertEquals('<h1>500 Internal Server Error</h1>', (string) $response->getBody());
 		$this->assertEquals('text/html', (string) $response->getHeaderLine('content-type'));
 		$this->assertEquals(500, (string) $response->getStatusCode());
+		$handler->restoreHandlers();
 	}
 
 	#[TestDox('Handle exception subclasses')]
@@ -100,5 +108,6 @@ class HandlerTest extends TestCase
 		$response = $handler->getResponse(new ErrorException('test message'), null);
 
 		$this->assertEquals('ErrorException rendered without request test message', (string) $response->getBody());
+		$handler->restoreHandlers();
 	}
 }

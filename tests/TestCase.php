@@ -41,8 +41,6 @@ class TestCase extends BaseTestCase
 		}
 
 		ini_set('error_log', $this->defaultLog);
-		restore_error_handler();
-		restore_exception_handler();
 		error_reporting($this->defaultErrorReporting);
 
 		$this->defaultErrorReporting = null;
