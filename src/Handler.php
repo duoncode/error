@@ -18,6 +18,7 @@ class Handler implements Middleware
 {
 	protected ?Logger $logger = null;
 	protected ?DebugHandler $debugHandler = null;
+	protected $restoreAlreadyCalled = false;
 
 	/** @var RendererEntry[] */
 	protected array $renderers = [];
@@ -39,8 +40,16 @@ class Handler implements Middleware
 
 	public function __destruct()
 	{
+		if (!$this->restoreAlreadyCalled) {
+			$this->restoreHandlers();
+		}
+	}
+
+	public function restoreHandlers(): void
+	{
 		restore_error_handler();
 		restore_exception_handler();
+		$this->restoreAlreadyCalled = true;
 	}
 
 	public function logger(?Logger $logger = null): void
