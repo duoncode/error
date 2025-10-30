@@ -176,6 +176,11 @@ class Handler implements Middleware
 		$exceptionClass = $exception::class;
 		error_log("Exception handled by {$thisClass}: {$exceptionClass}\n");
 		error_log($exception->getMessage());
+
+		if ($this->debug) {
+			error_log("\nTraceback:\n");
+			error_log($exception->getTraceAsString());
+		}
 	}
 
 	protected function logUnmatched(Throwable $exception): void
