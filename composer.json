@@ -28,7 +28,7 @@
 		"psr/http-factory": "^1.0"
 	},
 	"require-dev": {
-		"duon/dev": "^2.5",
+		"duon/dev": "^2.5 || ^3.0",
 		"duon/log": "dev-main",
 		"nyholm/psr7": "^1.8",
 		"nyholm/psr7-server": "^1.0"
