@@ -3,11 +3,11 @@
 	"description": "Error handling PSR-15 middleware",
 	"type": "library",
 	"license": "MIT",
-	"homepage": "https://duon.run/error",
+	"homepage": "https://duon.sh/error",
 	"authors": [
 		{
 			"name": "Ernst",
-			"email": "ernst@duon.run"
+			"email": "ernst@duon.sh"
 		}
 	],
 	"autoload": {
