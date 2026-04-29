@@ -14,7 +14,7 @@ use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use Psr\Log\LoggerInterface as Logger;
 use Throwable;
 
-/** @psalm-api */
+/** @api */
 class Handler implements Middleware
 {
 	protected ?Logger $logger = null;

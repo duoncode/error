@@ -33,7 +33,7 @@ final class RendererEntry
 		return false;
 	}
 
-	/** @psalm-api */
+	/** @api */
 	public function log(string|int $logLevel): void
 	{
 		$this->logLevel = $logLevel;
