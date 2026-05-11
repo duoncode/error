@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Duon\Error\Tests\Fixtures;
+namespace Celemas\Error\Tests\Fixtures;
 
-use Duon\Error\DebugHandler;
+use Celemas\Error\DebugHandler;
 use Psr\Http\Message\ResponseFactoryInterface as ResponseFactory;
 use Psr\Http\Message\ResponseInterface as Response;
 use Throwable;

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Duon\Error\Tests;
+namespace Celemas\Error\Tests;
 
-use Duon\Error\Handler;
-use Duon\Error\Tests\Fixtures\TestRenderer;
-use Duon\Log\Logger;
+use Celemas\Error\Handler;
+use Celemas\Error\Tests\Fixtures\TestRenderer;
+use Celemas\Log\Logger;
 use ErrorException;
 use PHPUnit\Framework\Attributes\TestDox;
 

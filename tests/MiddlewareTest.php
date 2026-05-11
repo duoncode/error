@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Duon\Error\Tests;
+namespace Celemas\Error\Tests;
 
 use DivisionByZeroError;
-use Duon\Error\Handler;
-use Duon\Error\Tests\Fixtures\TestRenderer;
+use Celemas\Error\Handler;
+use Celemas\Error\Tests\Fixtures\TestRenderer;
 use Exception;
 use PHPUnit\Framework\Attributes\TestDox;
 use Psr\Http\Message\ResponseInterface as Response;

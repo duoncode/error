@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Duon\Error\Tests;
+namespace Celemas\Error\Tests;
 
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7Server\ServerRequestCreator;

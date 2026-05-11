@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Duon\Error;
+namespace Celemas\Error;
 
 use Psr\Http\Message\ResponseFactoryInterface as ResponseFactory;
 use Psr\Http\Message\ResponseInterface as Response;

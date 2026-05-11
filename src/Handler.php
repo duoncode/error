@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Duon\Error;
+namespace Celemas\Error;
 
 use ErrorException;
 use Override;
