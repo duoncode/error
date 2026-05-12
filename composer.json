@@ -1,23 +1,23 @@
 {
-	"name": "duon/error",
+	"name": "celemas/error",
 	"description": "Error handling PSR-15 middleware",
 	"type": "library",
 	"license": "MIT",
-	"homepage": "https://duon.sh/error",
+	"homepage": "https://celemas.dev/error",
 	"authors": [
 		{
 			"name": "Ernst",
-			"email": "ernst@duon.sh"
+			"email": "ernst@celemas.dev"
 		}
 	],
 	"autoload": {
 		"psr-4": {
-			"Duon\\Error\\": "src/"
+			"Celemas\\Error\\": "src/"
 		}
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"Duon\\Error\\Tests\\": "tests/"
+			"Celemas\\Error\\Tests\\": "tests/"
 		}
 	},
 	"require": {
@@ -28,8 +28,8 @@
 		"psr/http-factory": "^1.0"
 	},
 	"require-dev": {
-		"duon/dev": "^2.5",
-		"duon/log": "dev-main",
+		"celemas/dev": "^2.5",
+		"celemas/log": "dev-main",
 		"nyholm/psr7": "^1.8",
 		"nyholm/psr7-server": "^1.0"
 	},
