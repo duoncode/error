@@ -1,6 +1,12 @@
 # Changelog
 
-## [0.1.0](https://github.com/duoncode/error/releases/tag/0.1.0) (2026-01-30)
+## [Unreleased](https://github.com/celemas/error/compare/0.1.0...HEAD)
+
+### Breaking Changes
+
+- Rename package metadata, root namespace, repository URLs, homepage, and contact email to Celemas.
+
+## [0.1.0](https://github.com/celemas/error/releases/tag/0.1.0) (2026-01-30)
 
 Initial release.
 
