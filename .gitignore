@@ -5,7 +5,7 @@
 .phpactor.json
 clover.xml
 composer.lock
-/coverage
+/.coverage
 /data
 php-cs-fixer.php
 phpunit.xml
