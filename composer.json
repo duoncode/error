@@ -28,7 +28,7 @@
 		"psr/http-factory": "^1.0"
 	},
 	"require-dev": {
-		"celemas/dev": "^4.1",
+		"celemas/dev": "^4.2",
 		"celemas/log": "dev-main",
 		"nyholm/psr7": "^1.8",
 		"nyholm/psr7-server": "^1.0"

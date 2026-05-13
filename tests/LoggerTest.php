@@ -16,7 +16,7 @@ class LoggerTest extends TestCase
 	public function testRenderMatchedErrorWithLogger(): void
 	{
 		$handler = new Handler($this->factory);
-		$handler->logger(new Logger(logfile: $this->logFile));
+		$handler->logger(new Logger(file: $this->logFile));
 		$handler->renderer(new TestRenderer(), ErrorException::class)->log(Logger::CRITICAL);
 		$response = $handler->getResponse(new ErrorException('test message'), $this->request());
 		$output = file_get_contents($this->logFile);
@@ -30,7 +30,7 @@ class LoggerTest extends TestCase
 	public function testRenderMatchedErrorWithLoggerNoLevel(): void
 	{
 		$handler = new Handler($this->factory);
-		$handler->logger(new Logger(logfile: $this->logFile));
+		$handler->logger(new Logger(file: $this->logFile));
 		$handler->renderer(new TestRenderer(), ErrorException::class);
 		$response = $handler->getResponse(new ErrorException('test message'), $this->request());
 		$output = file_get_contents($this->logFile);
@@ -44,7 +44,7 @@ class LoggerTest extends TestCase
 	public function testRenderUnmatchedErrorWithLogger(): void
 	{
 		$handler = new Handler($this->factory);
-		$handler->logger(new Logger(logfile: $this->logFile));
+		$handler->logger(new Logger(file: $this->logFile));
 		$response = $handler->getResponse(new ErrorException('test message'), $this->request());
 		$output = file_get_contents($this->logFile);
 
